@@ -87,7 +87,7 @@ function Detail(props) {
     </div>);
     }
   });
-  console.log(detail.categories, cat, "uc");
+  // console.log(detail.categories, cat, "uc");
 
   const [quantity, setQauntity] = useState(1);
 

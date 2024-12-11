@@ -28,12 +28,12 @@ function Card4(props) {
 
   const { slug } = useParams();
 
-
   return (
     <>
+    
       <div className="col-6 col-sm-6 col-md-6 col-lg-3">
         <div className="card bg-clr my-3 ">
-          <Link to={props.card.slug}>
+        <Link to={`/${props.card.slug}`}>
             {" "}
             <img
               className={props.card.imgclassName}
