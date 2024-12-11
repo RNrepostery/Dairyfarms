@@ -1,11 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit"
-
 const cartSlice = createSlice({
     name:"Cart",
     initialState:[],
     reducers:{
         add(state,action){
-
             const {productId,quantity,name,images,price,discountprice} = action.payload;
             const indexProductId = (state).findIndex(item => item.productId === productId)
             if (indexProductId>=0) {
@@ -18,7 +16,6 @@ const cartSlice = createSlice({
             
             }
         },
-
             
           
             
@@ -44,16 +41,13 @@ const cartSlice = createSlice({
             
             
             return state.filter((item)=>item.productId!== action.payload.productId)
-
         },
             
         },
        
-
         
         
       
-
         
     }
 )

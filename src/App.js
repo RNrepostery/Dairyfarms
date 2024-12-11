@@ -74,7 +74,7 @@ function App() {
       h4name: "Paneer",
       divclassName: "col-md-6  col-sm-6 col-lg-2 col-6 link-style",
     },]
-    console.log(cart.length,"ll")
+    
     
   return (
 

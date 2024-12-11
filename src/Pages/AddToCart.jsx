@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { remove, changeQuantity } from "../Redux/CartSlice";
 
-function AddToCart(props) {
+function AddToCart() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
@@ -20,105 +20,90 @@ function AddToCart(props) {
 
   return (
     <>
-      <div className="mt-5 pt-5">
-        <div className="mt-5 pt-5">
-          {cart?.map((da, cartIndex) => (
-            <div key={cartIndex} className="container px-5 mt-3 p-0">
-              <div className="row position-relative">
-                {/* Product Image */}
-                <div className="col-12 col-sm-3">
-                  <div className="card bg-clr">
-                    <img
-                      className="card-img-top img-fluid card-imgs"
-                      src={da?.images}
-                      alt={da?.name}
-                    />
-                  </div>
-                </div>
+      <div className="container mt-5 pt-5">
+        <h2 className="text-center mb-4">Your Cart</h2>
+        {cart?.map((item, index) => (
+          <div key={index} className="container px-3 px-md-5 mb-4">
+            <div className="row align-items-center g-4 border-bottom py-3 rounded shadow-sm">
+              {/* Product Image */}
+              <div className="col-12 col-md-3 text-center">
+                <img
+                  src={item?.images}
+                  alt={item?.name}
+                  className="img-fluid rounded"
+                  style={{ maxHeight: "100px", objectFit: "contain" }}
+                />
+              </div>
 
-                {/* Product Details */}
-                <div className="col-12 col-sm-4 mt-2">
-                  <div className="card-block">
-                    <p className="card-text text-center px-3 line-height-card">
-                      {da?.name}
-                    </p>
-                    <p className="card-text text-center line-height-card-rate">
-                      <div className="text-decoration-line-through">
-                        {da?.price}
-                      </div>
-                      <small className="text-muted">{da?.discountprice}</small>
-                    </p>
-                  </div>
-                </div>
+              {/* Product Details */}
+              <div className="col-12 col-md-4 text-center text-md-start">
+                <h5 className="mb-1">{item?.name}</h5>
+                <p className="mb-1 text-muted">
+                  <span className="text-decoration-line-through me-2">
+                    {item?.price}
+                  </span>
+                  <span className="fw-bold">₹{item?.discountprice}</span>
+                </p>
+              </div>
 
-                {/* Quantity Control */}
-                <div className="col-12 col-sm-3 mt-2">
-                  <div className="card-block">
-                    <p className="card-text text-center line-height-card-rate">
-                      <button
-                        className="minus"
-                        aria-label="Decrease"
-                        onClick={() => handleMinusQuantity(da?.quantity, da?.productId)}
-                      >
-                        −
-                      </button>
-                      <input
-                        type="number"
-                        className="input-box text-center px-3"
-                        value={da?.quantity}
-                        min={1}
-                        max={5}
-                      />
-                      <button
-                        className="plus"
-                        aria-label="Increase"
-                        onClick={() => handlePlusQuantity(da?.quantity, da?.productId)}
-                      >
-                        +
-                      </button>
-                    </p>
-                  </div>
-                </div>
-
-                {/* Total Price */}
-                <div className="col-12 col-sm-2 mt-2">
-                  <div className="card-block">
-                    <p className="card-text text-center line-height-card-rate">
-                      <small className="text-muted">
-                        {da?.discountprice * da?.quantity}
-                      </small>
-                    </p>
-                  </div>
-                </div>
-
-                
-                <div className="position-absolute top-0 end-0  p-2 col-12 d-flex justify-content-end">
+              {/* Quantity Controls */}
+              <div className="col-12 col-md-3 text-center">
+                <div className="d-flex justify-content-center align-items-center">
                   <button
-                    type="button"
-                    className="btn-close"
-                    aria-label="Close"
-                    onClick={() => removeFromCart(da?.name)} 
-                  ></button>
+                    className="btn btn-outline-secondary btn-sm"
+                    onClick={() => handleMinusQuantity(item?.quantity, item?.productId)}
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    className="form-control mx-2 text-center"
+                    value={item?.quantity}
+                    readOnly
+                    style={{ width: "60px" }}
+                  />
+                  <button
+                    className="btn btn-outline-secondary btn-sm"
+                    onClick={() => handlePlusQuantity(item?.quantity, item?.productId)}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
-              <hr />
-            </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Total Price Section */}
-      <div className="row">
-        <div className="col-12 text-center">
-          <p className="fs-5 fw-dark">
-            <span className="mx-1">Total:</span>
-            {cart
-              .map((item) => item.discountprice * item.quantity)
-              .reduce((total, value) => total + value, 0)}
-          </p>
+              {/* Total Price */}
+              <div className="col-12 col-md-2 text-center">
+                <p className="fw-bold mb-0">
+                  ₹{item?.discountprice * item?.quantity}
+                </p>
+              </div>
+
+              {/* Remove Button */}
+              <div className="col-12 col-md-1 text-center">
+                <button
+                  type="button"
+                  className="btn btn-danger btn-sm"
+                  onClick={() => removeFromCart(item)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Total Price Section */}
+        <div className="row mt-4">
+          <div className="col-12 text-center text-md-end pe-5">
+            <h4 className="fw-bold">
+              Total: ₹
+              {cart
+                .map((item) => item.discountprice * item.quantity)
+                .reduce((total, value) => total + value, 0)}
+            </h4>
+          </div>
         </div>
       </div>
-      <hr />
     </>
   );
 }
