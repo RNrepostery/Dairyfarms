@@ -89,7 +89,7 @@ const Header = (props) => {
 
 
                
-                  <Link onClick={headerHide} to="/Register">Login/Signup</Link> 
+                  <Link onClick={headerHide} to="/Register">Signin/Signup</Link> 
                 </button>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light  d-block d-lg-none ">
                   <div className="container">
